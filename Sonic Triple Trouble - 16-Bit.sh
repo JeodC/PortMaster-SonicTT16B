@@ -25,7 +25,22 @@ cd $GAMEDIR
 $ESUDO chmod 666 /dev/tty0
 $ESUDO chmod 666 /dev/uinput
 
-export LD_LIBRARY_PATH="$GAMEDIR/libs:$LD_LIBRARY_PATH"
+if [ $CFW_NAME == "*ArkOS*" ]; then
+    export LD_LIBRARY_PATH="$GAMEDIR/libs:$GAMEDIR/libs2:$LD_LIBRARY_PATH"
+else
+    export LD_LIBRARY_PATH="$GAMEDIR/libs:$LD_LIBRARY_PATH"
+fi
+
+if [ ! -f "game.droid" ]; then
+    source repack.txt
+fi
+
+if [ -f "sonictt16b.patch" ]; then
+    $controlfolder/xdelta3 -d -s "$GAMEDIR/game.droid" "$GAMEDIR/sonictt16b.patch" "$GAMEDIR/game2.droid"
+    rm -rf game.droid
+    rm -rf sonictt16b.patch
+    mv game2.droid game.droid
+fi
 
 echo "Loading, please wait... (might take a while!)" > /dev/tty0
 $GPTOKEYB "gmloadernext" -xbox360 &

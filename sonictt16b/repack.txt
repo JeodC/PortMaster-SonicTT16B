@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Extract all files to /tmp directory
+mkdir -p $GAMEDIR/tmp
+./libs/7za x *.apk -o/tmp
+
+# Move game.droid to $GAMEDIR
+mv "/tmp/assets/game.droid" "$GAMEDIR/game.droid"
+
+# Repack the contents of the /tmp directory into $GAMEDIR/game.apk
+./libs/7za a -mx0 "$GAMEDIR/game.apk" /tmp/*
+
+# Clean up the temporary directory
+rm -rf $GAMEDIR/tmp
