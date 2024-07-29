@@ -25,11 +25,14 @@ cd $GAMEDIR
 $ESUDO chmod 666 /dev/tty0
 $ESUDO chmod 666 /dev/uinput
 
-if [ $CFW_NAME == "*ArkOS*" ]; then
-    export LD_LIBRARY_PATH="$GAMEDIR/libs:$GAMEDIR/libs2:$LD_LIBRARY_PATH"
-else
-    export LD_LIBRARY_PATH="$GAMEDIR/libs:$LD_LIBRARY_PATH"
-fi
+case "$CFW_NAME" in
+    *ArkOS*)
+        export LD_LIBRARY_PATH="$GAMEDIR/libs:$GAMEDIR/libs2:$LD_LIBRARY_PATH"
+        ;;
+    *)
+        export LD_LIBRARY_PATH="$GAMEDIR/libs:$LD_LIBRARY_PATH"
+        ;;
+esac
 
 if [ ! -f "game.droid" ]; then
     source repack.txt
@@ -43,7 +46,7 @@ if [ -f "sonictt16b.patch" ]; then
 fi
 
 echo "Loading, please wait... (might take a while!)" > /dev/tty0
-$GPTOKEYB "gmloadernext" -xbox360 &
+$GPTOKEYB "gmloadernext" xbox360 &
 $ESUDO chmod +x "$GAMEDIR/gmloadernext"
 
 ./gmloadernext game.apk
