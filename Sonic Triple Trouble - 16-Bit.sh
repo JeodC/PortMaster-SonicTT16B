@@ -50,7 +50,7 @@ if [ "$CFW_NAME" == "muOS" ]; then
 else
     CUR_TTY="/dev/tty0"
 fi
-echo "\033c" > $CUR_TTY
+printf "\033c" > $CUR_TTY
 
 # Variables
 GAMEDIR="/$directory/ports/sonictt16b"
