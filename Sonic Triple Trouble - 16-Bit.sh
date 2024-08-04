@@ -102,13 +102,6 @@ elif [ -f "installed.32bit" ]; then
     GMLOADER="gmloadernext.armhf"
 fi
 
-# Export an additional library if arkos
-case "$CFW_NAME" in
-    *ArkOS*)
-        export LD_LIBRARY_PATH="$GAMEDIR/libs:$GAMEDIR/libs2:$LD_LIBRARY_PATH"
-        ;;
-esac
-
 # Run the game
 echo "Loading, please wait... (might take a while!)" > $CUR_TTY
 $GPTOKEYB "$GMLOADER" xbox360 &
