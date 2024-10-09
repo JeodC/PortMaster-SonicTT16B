@@ -104,7 +104,7 @@ fi
 
 # Run the game
 echo "Loading, please wait... (might take a while!)" > $CUR_TTY
-$GPTOKEYB "$GMLOADER" xbox360 &
+$GPTOKEYB "$GMLOADER" -c "sonic.gptk" &
 ./$GMLOADER game.apk
 
 $ESUDO kill -9 $(pidof gptokeyb)
